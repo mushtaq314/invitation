@@ -1,0 +1,384 @@
+1. What is .NET?
+Answer:
+.NET is a framework developed by Microsoft to build various types of applications such as web, desktop, and mobile apps. It provides a platform-independent environment to run and manage applications.
+
+Explanation:
+Think of .NET as a toolbox that helps developers create applications by providing pre-built tools (libraries) and rules (framework).
+
+2. What is the difference between .NET Framework, .NET Core, and .NET?
+Answer:
+
+.NET Framework: Used for Windows-based applications. It's older and Windows-specific.
+.NET Core: Cross-platform (works on Windows, macOS, Linux), lightweight, and modern.
+.NET (or .NET 5+): The latest unified framework combining the features of both .NET Core and .NET Framework.
+
+Explanation:
+.NET Framework is like an old car (reliable but limited). .NET Core is a newer car (faster and works anywhere), and .NET is the latest all-in-one upgraded model.
+
+3. What is CLR (Common Language Runtime)?
+Answer:
+CLR is the heart of the .NET Framework. It manages the execution of .NET programs by handling tasks like memory management, security, and garbage collection.
+
+Explanation:
+Think of CLR as a traffic controller that ensures everything in your program runs smoothly and safely.
+
+4. What is a C# class and object?
+Answer:
+
+Class: A blueprint for creating objects. It defines properties (data) and methods (actions).
+Object: An instance of a class.
+Example:
+
+ 
+class Car {
+    public string Color;
+    public void Drive() {
+        Console.WriteLine("Car is driving.");
+    }
+}
+
+Car myCar = new Car(); // Object
+myCar.Color = "Red";
+myCar.Drive(); // Calls the method
+Explanation:
+The class is like a recipe (e.g., for a cake), and the object is the actual cake made using that recipe.
+
+5. What is the difference between Value Type and Reference Type?
+Answer:
+
+Value Type: Stores data directly (e.g., int, float).
+Reference Type: Stores a reference (address) to the data (e.g., class, string).
+Example:
+
+int x = 10; // Value type
+string name = "Naruto"; // Reference type
+Explanation:
+Value types are like books you carry (direct access). Reference types are like library cards (you access the book indirectly).
+
+6. What is Managed Code?
+Answer:
+Managed code is code that runs under the supervision of the CLR, which handles tasks like memory management and security.
+
+Explanation:
+It's like renting a house managed by a landlord (CLR). They take care of plumbing and maintenance for you.
+
+7. What is Garbage Collection in .NET?
+Answer:
+Garbage Collection (GC) is a process in .NET that automatically frees up unused memory by removing objects no longer in use.
+
+Explanation:
+It's like a cleaning service that removes unnecessary items from your house to free up space.
+
+
+8. What is the difference between an Abstract Class and an Interface?
+Answer:
+
+Abstract Class: Can have both implemented methods and abstract (empty) methods.
+Interface: Only contains method declarations; no implementation.
+Example:
+abstract class Animal {
+    public abstract void MakeSound(); // Abstract method
+    public void Sleep() {
+        Console.WriteLine("Sleeping...");
+    }
+}
+
+interface IBird {
+    void Fly(); // Only declaration
+}
+
+Explanation:
+An abstract class is like a semi-finished product; you can customize some parts. An interface is just a list of rules everyone must follow.
+
+9. What is ASP.NET?
+Answer:
+ASP.NET is a web framework used to create websites and web applications.
+
+Explanation:
+It’s like a builder kit specifically designed to create websites using .NET technologies.
+
+
+10. What is MVC in ASP.NET?
+Answer:
+MVC stands for Model-View-Controller.
+
+Model: Handles data (e.g., database).
+View: Displays data (e.g., webpage).
+Controller: Manages user input and updates the Model or View.
+Explanation:
+Think of MVC like a restaurant:
+
+Model: Chef (prepares food).
+View: Waiter (serves food to customers).
+Controller: Manager (takes orders and communicates with the chef and waiter).
+
+
+11. What is Dependency Injection (DI)?
+Answer:
+DI is a design pattern that provides objects needed by a class instead of the class creating them itself.
+
+Explanation:
+Imagine you need groceries. Instead of going to the store yourself, you hire a delivery service to bring them to you.
+
+12. What are Assemblies in .NET?
+Answer:
+Assemblies are files that contain compiled code and resources. They are the building blocks of .NET applications.
+
+Types:
+
+DLL (Dynamic Link Library): Shared libraries.
+EXE (Executable): Runs as a standalone application.
+Explanation:
+Think of assemblies like Lego blocks. You combine them to build bigger structures (applications).
+
+
+13. What is LINQ?
+Answer:
+LINQ (Language Integrated Query) is a way to query data in a clean, readable way using C#.
+
+Example:
+int[] numbers = { 1, 2, 3, 4, 5 };
+var evenNumbers = numbers.Where(n => n % 2 == 0);
+
+Explanation:
+LINQ is like a filter for your data, allowing you to pick only what you need easily.
+
+
+14. What are the Access Modifiers in C#?
+Answer:
+Access modifiers control the visibility of a class or its members. Common ones are:
+
+public: Accessible anywhere.
+private: Accessible only within the class.
+protected: Accessible within the class and derived classes.
+internal: Accessible within the same project.
+
+
+15. What is a Constructor in C#?
+Answer:
+A constructor is a special method that initializes objects. It is called automatically when an object is created.
+
+Example:
+class Person {
+    public string Name;
+    public Person(string name) {
+        Name = name; // Initialize
+    }
+}
+
+Final Tips:
+Focus on understanding basic concepts rather than memorizing answers.
+Practice small programs to solidify your knowledge.
+Relate technical terms to real-life examples for easier understanding.
+Let me know if you'd like more examples or details!
+
+16. What is the difference between Stack and Heap?
+Answer:
+
+Stack: Stores value types and method calls. It is fast and follows the LIFO (Last In, First Out) principle.
+Heap: Stores reference types and objects. It is slower but can hold a large amount of data.
+Explanation:
+The stack is like a stack of plates at a buffet (last plate added is the first to be taken). The heap is like a storage room where items are kept in any order.
+
+17. What is the purpose of the using keyword in C#?
+Answer:
+The using keyword has two main purposes:
+
+Include namespaces: It helps access classes from a specific namespace.
+Example: using System;
+Dispose of resources: Automatically disposes of resources when the code block ends.
+Example:
+using (var file = new StreamWriter("file.txt")) {
+    file.WriteLine("Hello, World!");
+}
+
+Explanation:
+using is like opening a library book for reference and returning it when done.
+
+18. What is a Static Class in C#?
+Answer:
+A static class is a class that cannot be instantiated. It can only have static members.
+
+Example:
+static class MathHelper {
+    public static int Add(int a, int b) {
+        return a + b;
+    }
+}
+Explanation:
+Think of a static class as a toolbox. You don’t create new toolboxes every time; you just use the tools inside.
+
+19. What is the difference between == and .Equals() in C#?
+Answer:
+
+==: Compares values or references, depending on the data type.
+.Equals(): Compares the content of objects for equality.
+Example:
+string a = "Naruto";
+string b = "Naruto";
+
+Console.WriteLine(a == b); // True
+Console.WriteLine(a.Equals(b)); // True
+
+Explanation:
+== is like comparing two keys to see if they look the same, while .Equals() ensures they open the same lock.
+
+
+20. What are Delegates in C#?
+Answer:
+A delegate is a type-safe function pointer that references a method.
+
+Example:
+delegate void Greet(string name);
+
+void SayHello(string name) {
+    Console.WriteLine($"Hello, {name}!");
+}
+
+Greet greet = SayHello;
+greet("Naruto");
+
+Explanation:
+A delegate is like a remote control. You press a button (invoke the delegate), and the connected device (method) executes.
+
+21. What is the difference between var, dynamic, and object?
+Answer:
+
+var: Type is determined at compile time.
+dynamic: Type is determined at runtime.
+object: Base type of all types, but requires explicit type casting.
+Example:
+var name = "Naruto"; // Type is string
+dynamic value = 123; // Type can change
+object obj = "Hello"; // Type cast needed: (string)obj
+
+Explanation:
+var is like knowing the exact tool you'll use, dynamic is like a flexible tool, and object is like a universal tool that needs adjustments.
+
+22. What is Polymorphism in C#?
+Answer:
+Polymorphism means "many forms." In C#, it allows methods to behave differently based on their input or the object calling them.
+
+Types:
+
+Compile-time Polymorphism: Method overloading.
+Runtime Polymorphism: Method overriding.
+Example:
+class Animal {
+    public virtual void Speak() {
+        Console.WriteLine("Animal speaks.");
+    }
+}
+
+class Dog : Animal {
+    public override void Speak() {
+        Console.WriteLine("Dog barks.");
+    }
+}
+
+Explanation:
+Polymorphism is like a person speaking different languages depending on the audience.
+
+
+23. What is the difference between Abstract Class and Interface?
+
+24. What are Indexers in C#?
+Answer:
+Indexers allow objects to be accessed like arrays.
+
+Example:
+class MyClass {
+    private int[] data = new int[5];
+    public int this[int index] {
+        get { return data[index]; }
+        set { data[index] = value; }
+    }
+}
+
+MyClass obj = new MyClass();
+obj[0] = 10;
+Console.WriteLine(obj[0]); // Output: 10
+
+Explanation:
+Indexers are like numbered compartments in a storage box.
+
+25. What is ASP.NET Web API?
+Answer:
+ASP.NET Web API is a framework to build HTTP-based services. It allows communication between different devices using RESTful services.
+
+Explanation:
+Web API is like a waiter in a restaurant that takes requests (orders) and delivers responses (food).
+
+
+26. What is Entity Framework?
+Answer:
+Entity Framework (EF) is an ORM (Object-Relational Mapping) tool in .NET. It allows developers to work with databases using objects and classes instead of SQL queries.
+
+Example:
+using (var context = new MyDbContext()) {
+    var users = context.Users.ToList(); // Fetches all users
+}
+Explanation:
+EF is like a translator that converts database tables into objects you can use in your code.
+
+
+
+27. What is Middleware in ASP.NET Core?
+Answer:
+Middleware is software that processes HTTP requests and responses in the pipeline.
+
+Example:
+app.Use(async (context, next) => {
+    Console.WriteLine("Request handled.");
+    await next();
+    Console.WriteLine("Response handled.");
+});
+Explanation:
+Middleware is like checkpoints that every HTTP request and response must pass through.
+
+
+28. What is a NuGet Package?
+Answer:
+A NuGet package is a collection of reusable code that you can add to your project.
+
+Example:
+To install a package:
+Install-Package Newtonsoft.Json
+
+Explanation:
+NuGet is like an app store for developers, where you download tools (packages) for your projects.
+
+
+29. What are Extension Methods in C#?
+Answer:
+Extension methods allow you to add new methods to existing classes without modifying them.
+
+Example:
+public static class Extensions {
+    public static int Double(this int value) {
+        return value * 2;
+    }
+}
+
+int num = 5;
+Console.WriteLine(num.Double()); // Output: 10
+
+Explanation:
+Extension methods are like accessories you can add to existing tools.
+
+
+30. What is an Async/Await in C#?
+Answer:
+Async/Await makes asynchronous programming easier by running tasks in the background without blocking the main thread.
+
+Example:
+
+async Task<int> GetDataAsync() {
+    await Task.Delay(2000); // Simulate delay
+    return 10;
+}
+
+Explanation:
+Async/Await is like placing an order at a coffee shop and doing something else while waiting for your coffee.
+
+
