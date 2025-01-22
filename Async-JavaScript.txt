@@ -1,0 +1,79 @@
+What is Asynchronous Programming?
+Asynchronous programming allows JavaScript to perform long-running tasks (like fetching data or reading files) without blocking the main thread. This ensures the application remains responsive to user interactions while waiting for these tasks to complete.
+
+
+1. What is async/await in JavaScript?
+Answer:
+async/await is a way to handle asynchronous operations in JavaScript that makes your code look synchronous and easier to read.
+
+async: Marks a function as asynchronous. It always returns a Promise.
+await: Waits for the Promise to resolve before moving to the next line.
+Example:
+async function fetchData() {
+    console.log("Fetching data...");
+    const data = await fetch("https://api.example.com/data");
+    console.log("Data received!");
+}
+fetchData();
+Explanation:
+Imagine you're ordering pizza online (fetch). You wait (await) for the pizza to arrive before eating, but while waiting, the delivery system (async) keeps working in the background without stopping the kitchen.
+
+
+2. What are Promises in JavaScript?
+Answer:
+A Promise is an object that represents a task that will complete in the future, either successfully (resolve) or with an error (reject).
+
+States of a Promise:
+
+Pending: The task is still in progress.
+Fulfilled (Resolved): The task completed successfully.
+Rejected: The task failed with an error.
+Example:
+const promise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Task completed!");
+    } else {
+        reject("Task failed!");
+    }
+});
+
+promise
+    .then((result) => console.log(result)) // If resolved
+    .catch((error) => console.error(error)); // If rejected
+
+Explanation:
+A promise is like a courier package:
+
+While it's in transit, it’s pending.
+When it arrives, it's fulfilled (resolved).
+If lost, it's rejected (failed).
+
+1. Single-Threaded Nature of JavaScript
+JavaScript runs on a single thread, meaning it can only do one thing at a time.
+To handle multiple tasks without freezing the application, JavaScript uses asynchronous programming.
+
+
+2. Event Loop
+The event loop is the heart of asynchronous programming in JavaScript. It ensures that asynchronous operations like timers, API calls, or DOM events are executed in the correct order.
+
+How It Works:
+JavaScript starts executing code from the Call Stack (synchronous code).
+If it encounters an asynchronous task (e.g., setTimeout, API calls), it offloads it to the Web APIs (like a timer or HTTP request handler).
+Once the asynchronous task completes, its callback is moved to the Task Queue or Microtask Queue.
+The Event Loop checks if the Call Stack is empty. If it is, it pushes tasks from the queues to the stack for execution.
+
+
+3. Callbacks
+A callback is a function that gets executed after an asynchronous operation is complete.console.log("Start");
+
+setTimeout(() => {
+    console.log("Async Task Complete");
+}, 2000);
+
+console.log("End");
+
+Explanation:
+
+The setTimeout is handled by the Web API, and its callback is placed in the Task Queue.
+The Event Loop ensures the callback executes only after the synchronous code finishes.
