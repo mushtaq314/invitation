@@ -1,80 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitation Card</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f7f7f7;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ICD-10 Live Search (Web)</title>
+  <meta name="description" content="Fast ICD-10 live search powered by NLM ClinicalTables API." />
+  <style>
+    :root{
+      --bg:#0f172a;        /* slate-900 */
+      --panel:#111827;     /* gray-900 */
+      --muted:#94a3b8;     /* slate-400 */
+      --text:#e5e7eb;      /* gray-200 */
+      --accent:#3b82f6;    /* blue-500 */
+      --accent-2:#1e40af;  /* blue-800 */
+      --input:#1e293b;     /* slate-800 */
+      --border:#243244;    /* custom */
+    }
+    html,body{height:100%}
+    body{
+      margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif;line-height:1.5;
+      display:flex;align-items:stretch;justify-content:center
+    }
+    .app{width:min(900px,100%);padding:20px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);overflow:hidden}
+    .head{padding:16px 16px 0}
+    h1{font-size:20px;margin:0 0 6px}
+    .sub{font-size:13px;color:var(--muted);margin:0 0 14px}
 
-        .card-container {
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
+    .controls{padding:0 16px 16px}
+    .searchRow{display:flex;gap:8px;align-items:center}
+    .searchRow input[type="text"]{
+      flex:1;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--input);color:#fff;
+      outline:none
+    }
+    .searchRow input::placeholder{color:#93a0b4}
+    .btn{appearance:none;border:0;border-radius:12px;background:var(--accent);color:white;padding:12px 14px;font-weight:600;cursor:pointer}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .status{padding:0 16px 16px;color:var(--muted);font-size:14px;min-height:24px}
 
-        .card-container img {
-            width: 100%;
-            height: auto;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    .list{max-height:60vh;overflow:auto;border-top:1px solid var(--border)}
+    .item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;gap:8px;align-items:flex-start}
+    .item:hover{background:rgba(59,130,246,.08)}
+    .code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#0b1220;border:1px solid #182132;padding:2px 6px;border-radius:8px;white-space:nowrap}
+    .name{flex:1}
 
-        .location-card {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
-            color: #333;
-        }
-
-        .location-card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .location-card a:hover {
-            background-color: #218838;
-        }
-    </style>
+    .foot{padding:12px 16px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;align-items:center}
+    .loading{display:inline-block;translate:0 .2ch}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
 </head>
 <body>
-    <a href="https://www.google.com/maps/dir//MH7V%2B2MP+Yash+Lawns,+wakadi,+Shrirampur-Shirdi,+Wakadi,+Maharashtra+413719/" 
-               target="_blank" style="justify-content:center; display: flex;"> <div class="card-container" style="position: relative;">
-        <!-- Responsive GIF -->
-        <img src="Invitation-image.gif" alt="Invitation GIF" id="invitationGIF">
-		 
-        <!-- Location Card -->
-        <!-- <div class="location-card" id="locationCard">
-            <p>We invite you to join our engagement ceremony! Celebrate with us at:</p>
-            <p><strong>Yash Lawns, Wakadi</strong></p>
-           View Location
-        </div> -->
-    </div></a>
+  <main class="app">
+    <div class="card" role="application" aria-label="ICD-10 live search">
+      <div class="head">
+        <h1>ICD-10 Live Search</h1>
+        <p class="sub">Search ICD-10-CM codes and descriptions. Data via <a href="https://clinicaltables.nlm.nih.gov/" target="_blank" rel="noopener" style="color:var(--accent)">NLM ClinicalTables API</a>.</p>
+      </div>
 
-    <script>
-        document.getElementById('invitationGIF').addEventListener('click', function () {
-            document.getElementById('locationCard').style.display = 'block';
-        });
-    </script>
+      <div class="controls">
+        <form id="searchForm" class="searchRow" autocomplete="off">
+          <label for="q" class="sr-only">Search ICD-10 code or term</label>
+          <input id="q" name="q" type="text" placeholder="Type code or diagnosis... (e.g., E11, hypertension)" autofocus />
+          <button id="copyBtn" type="button" class="btn" disabled>Copy Selected</button>
+        </form>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <div id="list" class="list" role="listbox" aria-label="Search results"></div>
+
+      <div class="foot">
+        <span>Tip: Double‑click any row to copy.</span>
+        <span id="apiStatus"></span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_URL = 'https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search';
+
+    const qEl = document.getElementById('q');
+    const listEl = document.getElementById('list');
+    const statusEl = document.getElementById('status');
+    const copyBtn = document.getElementById('copyBtn');
+    const apiStatus = document.getElementById('apiStatus');
+
+    let debounceTimer = null;
+    let lastResults = [];
+    let selectedIndex = -1;
+
+    function setStatus(msg){ statusEl.textContent = msg || ''; }
+
+    function renderList(items){
+      listEl.innerHTML = '';
+      items.forEach((it, idx) => {
+        const [code, name] = it;
+        const row = document.createElement('div');
+        row.className = 'item';
+        row.setAttribute('role','option');
+        row.setAttribute('data-index', idx);
+        row.innerHTML = `<span class="code">${escapeHtml(code)}</span><span class="name">${escapeHtml(name)}</span>`;
+        row.addEventListener('click', () => selectIndex(idx,true));
+        row.addEventListener('dblclick', () => copyText(`${code} - ${name}`));
+        listEl.appendChild(row);
+      });
+      updateCopyState();
+    }
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+    }
+
+    function updateCopyState(){
+      copyBtn.disabled = selectedIndex < 0 || !lastResults[selectedIndex];
+    }
+
+    function selectIndex(idx, scrollIntoView=false){
+      const children = Array.from(listEl.children);
+      children.forEach(el => el.style.background = '');
+      selectedIndex = idx;
+      if(children[idx]){
+        children[idx].style.background = 'rgba(59,130,246,.14)';
+        if(scrollIntoView) children[idx].scrollIntoView({block:'nearest'});
+      }
+      updateCopyState();
+    }
+
+    function copyText(text){
+      navigator.clipboard.writeText(text).then(()=>{
+        setStatus(`Copied: ${text}`);
+      }).catch(()=>{
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); setStatus(`Copied: ${text}`); }
+        catch(e){ setStatus('Copy failed.'); }
+        finally{ document.body.removeChild(ta); }
+      });
+    }
+
+    async function search(query){
+      setStatus('Searching...');
+      apiStatus.innerHTML = '<span class="loading">⏳</span>';
+      listEl.innerHTML = '';
+      selectedIndex = -1; updateCopyState();
+      try{
+        const params = new URLSearchParams({ sf:'code,name', terms: query, maxList: '30' });
+        const res = await fetch(`${API_URL}?${params.toString()}`, { method:'GET' });
+        if(!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        const results = Array.isArray(data) && Array.isArray(data[3]) ? data[3] : [];
+        lastResults = results;
+        if(results.length){
+          renderList(results);
+          setStatus(`Found ${results.length} results for '${query}'`);
+          selectIndex(0);
+        } else {
+          renderList([]);
+          setStatus('No results found.');
+        }
+      } catch(err){
+        console.error(err);
+        setStatus('Error fetching data.');
+      } finally {
+        apiStatus.textContent = '';
+      }
+    }
+
+    // Debounced input
+    qEl.addEventListener('input', (e)=>{
+      const val = e.target.value.trim();
+      if(debounceTimer) clearTimeout(debounceTimer);
+      if(!val){ listEl.innerHTML = ''; setStatus(''); selectedIndex=-1; updateCopyState(); return; }
+      debounceTimer = setTimeout(()=> search(val), 300);
+    });
+
+    // Keyboard navigation + copy
+    qEl.addEventListener('keydown', (e)=>{
+      const max = lastResults.length - 1;
+      if(!lastResults.length) return;
+      if(e.key === 'ArrowDown'){ e.preventDefault(); selectIndex(Math.min(max, selectedIndex+1), true); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); selectIndex(Math.max(0, selectedIndex-1), true); }
+      else if(e.key === 'Enter'){ e.preventDefault();
+        if(selectedIndex>=0){ const [code,name]=lastResults[selectedIndex]; copyText(`${code} - ${name}`); }
+      }
+    });
+
+    // Enable copy via button
+    copyBtn.addEventListener('click', ()=>{
+      if(selectedIndex>=0){ const [code,name]=lastResults[selectedIndex]; copyText(`${code} - ${name}`); }
+    });
+
+    // Also allow list keyboard navigation
+    listEl.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' && selectedIndex>=0){ const [code,name]=lastResults[selectedIndex]; copyText(`${code} - ${name}`); }
+    });
+
+    // Focus input on load
+    window.addEventListener('load', ()=>{ qEl.focus(); });
+  </script>
 </body>
 </html>
